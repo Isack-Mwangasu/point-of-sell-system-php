@@ -37,6 +37,17 @@ if (isset($_POST['save_product'])) {
         $alert = '<div class="alert alert-warning mt-3">Please fill in product name and code.</div>';
     }
 }
+
+$products = [];
+if (!empty($dbcon) && empty($dbcon->connect_error)) {
+    $result = $dbcon->query(
+        'SELECT id, product_name, product_code, quantity, buying_price, selling_price FROM products ORDER BY id DESC'
+    );
+    if ($result) {
+        $products = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,6 +92,44 @@ if (isset($_POST['save_product'])) {
                         <button type="submit" class="btn btn-primary" name="save_product">Save Product</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">Products List</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered align-middle">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product Name</th>
+                                <th>Product Code</th>
+                                <th>Quantity</th>
+                                <th>Buy Price (KSh)</th>
+                                <th>Selling Price (KSh)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (count($products) === 0) : ?>
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">No products yet.</td>
+                                </tr>
+                            <?php else : ?>
+                                <?php foreach ($products as $index => $product) : ?>
+                                    <tr>
+                                        <td><?php echo $index + 1; ?></td>
+                                        <td><?php echo htmlspecialchars($product['product_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['product_code']); ?></td>
+                                        <td><?php echo (int)$product['quantity']; ?></td>
+                                        <td><?php echo number_format((float)$product['buying_price'], 2); ?></td>
+                                        <td><?php echo number_format((float)$product['selling_price'], 2); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
