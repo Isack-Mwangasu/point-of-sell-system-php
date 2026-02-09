@@ -102,7 +102,7 @@ if (!empty($dbcon) && empty($dbcon->connect_error)) {
                     <table class="table table-striped table-bordered align-middle">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>Number</th>
                                 <th>Product Name</th>
                                 <th>Product Code</th>
                                 <th>Quantity</th>
