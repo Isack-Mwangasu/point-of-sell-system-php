@@ -1,3 +1,43 @@
+<?php
+session_start();
+include 'dbcon.php';
+
+$alert = '';
+if (isset($_SESSION['flash_alert'])) {
+    $alert = $_SESSION['flash_alert'];
+    unset($_SESSION['flash_alert']);
+}
+
+if (isset($_POST['save_product'])) {
+    $product_name = trim($_POST['product_name'] ?? '');
+    $product_code = trim($_POST['product_code'] ?? '');
+    $quantity = (int)($_POST['quantity'] ?? 0);
+    $buying_price = (float)($_POST['buying_price'] ?? 0);
+    $selling_price = (float)($_POST['selling_price'] ?? 0);
+
+    if (empty($dbcon) || $dbcon->connect_error) {
+        $alert = '<div class="alert alert-danger mt-3">Database connection failed.</div>';
+    } elseif ($product_name !== '' && $product_code !== '') {
+        $stmt = $dbcon->prepare(
+            'INSERT INTO products (product_name, product_code, quantity, buying_price, selling_price) VALUES (?, ?, ?, ?, ?)'
+        );
+        if ($stmt) {
+            $stmt->bind_param('ssidd', $product_name, $product_code, $quantity, $buying_price, $selling_price);
+            if ($stmt->execute()) {
+                $_SESSION['flash_alert'] = '<div class="alert alert-success mt-3">Product saved.</div>';
+                header('Location: products.php');
+                exit;
+            }
+            $alert = '<div class="alert alert-danger mt-3">Save failed. Try again.</div>';
+            $stmt->close();
+        } else {
+            $alert = '<div class="alert alert-danger mt-3">Database error. Try again.</div>';
+        }
+    } else {
+        $alert = '<div class="alert alert-warning mt-3">Please fill in product name and code.</div>';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,44 +48,12 @@
     <title>Point of Sale System</title>
 </head>
 <body>
-    <?php include 'dbcon.php'; ?>
     <?php include 'links.php'; ?>
 
     <div class="container pt-5 mt-4">
         <div class="card">
             <div class="card-header">New Products
-                <?php
-                $alert = '';
-                if (isset($_POST['save_product'])) {
-                    $product_name = trim($_POST['product_name'] ?? '');
-                    $product_code = trim($_POST['product_code'] ?? '');
-                    $quantity = (int)($_POST['quantity'] ?? 0);
-                    $buying_price = (float)($_POST['buying_price'] ?? 0);
-                    $selling_price = (float)($_POST['selling_price'] ?? 0);
-
-                    if (empty($dbcon) || $dbcon->connect_error) {
-                        $alert = '<div class="alert alert-danger mt-3">Database connection failed.</div>';
-                    } elseif ($product_name !== '' && $product_code !== '') {
-                        $stmt = $dbcon->prepare(
-                            'INSERT INTO products (product_name, product_code, quantity, buying_price, selling_price) VALUES (?, ?, ?, ?, ?)'
-                        );
-                        if ($stmt) {
-                            $stmt->bind_param('ssidd', $product_name, $product_code, $quantity, $buying_price, $selling_price);
-                            if ($stmt->execute()) {
-                                $alert = '<div class="alert alert-success mt-3">Product saved.</div>';
-                            } else {
-                                $alert = '<div class="alert alert-danger mt-3">Save failed. Try again.</div>';
-                            }
-                            $stmt->close();
-                        } else {
-                            $alert = '<div class="alert alert-danger mt-3">Database error. Try again.</div>';
-                        }
-                    } else {
-                        $alert = '<div class="alert alert-warning mt-3">Please fill in product name and code.</div>';
-                    }
-                }
-                echo $alert;
-                ?>
+                <?php echo $alert; ?>
             </div>
             <div class="card-body">
                 <form method="post">
