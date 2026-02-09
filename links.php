@@ -1,4 +1,4 @@
-
+<?php include 'dbcon.php'; ?>
 
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm sticky-top">
 	<div class="container-fluid">
