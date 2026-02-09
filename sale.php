@@ -11,7 +11,7 @@
     <?php include 'links.php'; ?>
 
     <div class="container pt-5 mt-4">
-     Products
+        sale
     </div>
 </body>
 </html>

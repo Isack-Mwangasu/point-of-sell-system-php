@@ -1,6 +1,8 @@
+
+
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm fixed-top">
-	<div class="container">
-		<a class="navbar-brand fw-semibold" href="index.php">POS</a>
+	<div class="container-fluid">
+		<a class="navbar-brand fw-semibold" href="index.php">Point of Sale System</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -8,10 +10,11 @@
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Home</a></li>
 				<li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
-				<li class="nav-item"><a class="nav-link" href="sell.php">Sell</a></li>
-				<li class="nav-item"><a class="nav-link" href="links.php">Links</a></li>
+				<li class="nav-item"><a class="nav-link" href="sale.php">Sale</a></li>
 				<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
+
+

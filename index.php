@@ -9,9 +9,8 @@
 </head>
 <body>
     <?php include 'links.php'; ?>
-
-    <div class="container">
-    Home
+    <div class="container pt-5 mt-4">
+        Home
     </div>
 </body>
 </html>
