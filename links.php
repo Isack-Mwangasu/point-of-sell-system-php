@@ -1,6 +1,6 @@
 
 
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm fixed-top">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm sticky-top">
 	<div class="container-fluid">
 		<a class="navbar-brand fw-semibold" href="index.php">Point of Sale System</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
