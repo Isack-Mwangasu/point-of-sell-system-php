@@ -35,7 +35,9 @@
                         <label for="sellingPrice" class="form-label">Selling Price (KSh)</label>
                         <input type="number" id="sellingPrice" name="selling_price" min="0" step="0.01" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Product</button>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Save Product</button>
+                    </div>
                 </form>
             </div>
         </div>
